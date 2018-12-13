@@ -1,3 +1,3 @@
 # matutils
 
-### https://github.com/MathieuTuli/matutils.git
+### Frequent uses of different python libraries or functionality that I wanted to nicely wrap
