@@ -1,4 +1,4 @@
-'''UseOpenCV'''
+'''OpenCV'''
 
 import cv2
 import os
@@ -8,7 +8,7 @@ from datetime import datetime
 from Logger import Logger
 
 
-class UseOpenCV():
+class OpenCV():
     '''Interface for OpenCV in use cases I frequently have
     '''
     def __init__(self,
@@ -103,7 +103,7 @@ class UseOpenCV():
                 break
 
     def save_video(self, frame) -> None:
-        '''Write opencv frame to file
+        '''Write opencv frame using object defined writer
         @param frame: numpy.ndarray
         '''
         try:
