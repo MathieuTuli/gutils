@@ -9,7 +9,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     url='https://github.com/mathieutuli/matutils',
-    python_requires='==3.7',
+    python_requires='~=3.7',
     install_requires=[
     ],
     dependency_links=[
