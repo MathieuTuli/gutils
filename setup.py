@@ -2,13 +2,13 @@ from setuptools import setup, find_namespace_packages
 from glob import glob
 
 setup(
-    name='matutils',
+    name='gutils',
     use_scm_version=True,
     packages=find_namespace_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
-    url='https://github.com/mathieutuli/matutils',
+    url='https://github.com/gutils/gutils',
     python_requires='~=3.7',
     install_requires=[
     ],
