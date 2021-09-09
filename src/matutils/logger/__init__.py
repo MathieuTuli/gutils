@@ -1,56 +1,37 @@
-'''Logger'''
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
+import datetime
 import logging
 
+from ..components import LogLevel
 
-class Logger():
-    '''Logger'''
-    def __init__(self,
-                 name: str='root',
-                 logger_type: str='base',
-                 log_level: int=logging.DEBUG):
-        '''
-        Constructor
-        @param name: str
-            @default: 'root'
-        @param logger_type: str
-            @default: 'base'
-            @options: ['base', 'systemd-journal']
-        @param log_level: int
-            @default: logging.DEBUG
-            @options: logging.[INFO, DEBUG, WARNING, ERROR, CRITICAL]
-        '''
-        self.name = name
-        self.logger_type = logger_type
-        if logger_type == 'base':
-            formatter = logging.Formatter(
-                fmt='%(asctime)s [%(levelname)s]: %(message)s',
-                datefmt='%Y-%m-%d %H:%M:%S'
-            )
 
-            handler = logging.StreamHandler()
-            handler.setFormatter(formatter)
+def init_logger(log_file: Path,
+                log_level: LogLevel = LogLevel.NOTSET,
+                rotate: bool = False) -> logging.Logger:
+    if log_level not in LogLevel.items():
+        raise ValueError(f"Unknown log level: {log_level}")
+    log_format = logging.Formatter("[%(asctime)s %(levelname)s] %(message)s")
+    logger = logging.getLogger()
+    logger.setLevel(log_level.value)
 
-            logger = logging.getLogger(self.name)
-            logger.setLevel(logging.DEBUG)
-            logger.addHandler(handler)
-        elif logger_type == 'systemd-journal':
-            try:
-                from systemd.journal import JournalHandler
-                logging.root.addHandler(JournalHandler())
-                logging.root.setLevel(logging.DEBUG)
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(log_format)
+    logger.handlers = [console_handler]
 
-            except Exception:
-                raise OSError("Couldn't import systemd.journal.JournalHandler.")
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+    if log_file.suffix == '':
+        log_file.mkdir(parents=True, exist_ok=True)
+        log_file /= f"tod_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log"
+    if log_file.name and log_file.name != '':
+        if rotate:
+            file_handler = RotatingFileHandler(
+                log_file, maxBytes=1000000, backupCount=10)
         else:
-            raise ValueError("{} is not a valid logger_type. Choose from {}".format(
-                logger_type, ['base', 'systemd-journal']))
+            file_handler = logging.FileHandler(str(log_file))
+        file_handler.setLevel(log_level.value)
+        file_handler.setFormatter(log_format)
+        logger.addHandler(file_handler)
 
-    def get_logger(self):
-        '''
-        Return the logger
-        '''
-        return self.logger
-
-
-name = 'logger'
+    return logger
