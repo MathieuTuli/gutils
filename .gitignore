@@ -1,3 +1,4 @@
+dist/*
 # Stock Python things
 /venv
 *.egg-info
