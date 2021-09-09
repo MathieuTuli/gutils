@@ -16,3 +16,7 @@ class LogLevel(Enum):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def items():
+        return list(map(lambda c: c, LogLevel))
