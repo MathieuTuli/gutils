@@ -1,4 +1,3 @@
-from typing import Any
 from enum import Enum
 
 import logging
@@ -11,6 +10,7 @@ class LogLevel(Enum):
     INFO = logging.INFO
     DEBUG = logging.DEBUG
     ERROR = logging.ERROR
+    NOTSET = logging.NOTSET
     WARNING = logging.WARNING
     CRITICAL = logging.CRITICAL
 
