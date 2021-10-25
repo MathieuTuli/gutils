@@ -23,7 +23,7 @@ def init_logger(log_file: Path,
     log_file.parent.mkdir(parents=True, exist_ok=True)
     if log_file.suffix == '':
         log_file.mkdir(parents=True, exist_ok=True)
-        log_file /= f"tod_{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log"
+        log_file /= f"{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log"
     if log_file.name and log_file.name != '':
         if rotate:
             file_handler = RotatingFileHandler(

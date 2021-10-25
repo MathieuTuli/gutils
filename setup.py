@@ -3,7 +3,7 @@ from glob import glob
 
 setup(
     name='gutils',
-    version='0.1.1',
+    version='0.1.2',
     zip_safe=False,
     setup_requires=[],
     install_requires=[],
