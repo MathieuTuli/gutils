@@ -3,13 +3,13 @@ from glob import glob
 
 setup(
     name='gutils',
-    version='0.1.2',
+    version='0.1.3',
     zip_safe=False,
     setup_requires=[],
     install_requires=[],
     dependency_links=[],
     use_scm_version=True,
-    python_requires='~=3.7',
+    python_requires='>=3.7',
     package_dir={'': 'src'},
     include_package_data=True,
     url='https://github.com/MathieuTuli/gutils',
