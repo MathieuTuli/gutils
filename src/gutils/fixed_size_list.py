@@ -1,7 +1,7 @@
 from typing import Any
 
 
-class FixedList(list):
+class FixedSizeList(list):
     def __init__(self, capacity: int, **kwargs) -> None:
         super().__init__(**kwargs)
         self._capacity = capacity
