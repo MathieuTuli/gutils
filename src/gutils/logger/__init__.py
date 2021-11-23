@@ -9,10 +9,11 @@ from ..components import LogLevel
 
 def init_logger(log_file: Path,
                 log_level: LogLevel = LogLevel.NOTSET,
-                rotate: bool = False) -> logging.Logger:
+                rotate: bool = False,
+                name: str = '') -> logging.Logger:
     if log_level not in LogLevel.items():
         raise ValueError(f"Unknown log level: {log_level}")
-    log_format = logging.Formatter("[%(asctime)s %(levelname)s] %(message)s")
+    log_format = logging.Formatter(f"[%(levelname)s] (%(asctime)s) - {name}: ")
     logger = logging.getLogger()
     logger.setLevel(log_level.value)
 
