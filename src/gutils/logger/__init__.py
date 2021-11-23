@@ -13,7 +13,8 @@ def init_logger(log_file: Path,
                 name: str = '') -> logging.Logger:
     if log_level not in LogLevel.items():
         raise ValueError(f"Unknown log level: {log_level}")
-    log_format = logging.Formatter(f"[%(levelname)s] (%(asctime)s) - {name}: ")
+    log_format = logging.Formatter(
+        f"[%(levelname)s] (%(asctime)s) - {name}: %(message)s")
     logger = logging.getLogger()
     logger.setLevel(log_level.value)
 
