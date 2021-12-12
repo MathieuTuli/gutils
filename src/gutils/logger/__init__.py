@@ -1,16 +1,19 @@
 from logging.handlers import RotatingFileHandler
-from pathlib import Path
+from pathlib import Path, PosixPath
+from datetime import datetime
+from typing import Union
 
-import datetime
 import logging
 
 from ..components import LogLevel
 
 
-def init_logger(log_file: Path,
+def init_logger(log_file: Union[Path, str],
                 log_level: LogLevel = LogLevel.NOTSET,
                 rotate: bool = False,
                 name: str = '') -> logging.Logger:
+    if not isinstance(log_file, PosixPath):
+        log_file = Path(log_file).expanduser()
     if log_level not in LogLevel.items():
         raise ValueError(f"Unknown log level: {log_level}")
     log_format = logging.Formatter(
